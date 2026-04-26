@@ -233,6 +233,8 @@ Views.packages = {
             pkg.destination?.warehouse || pkg.destination?.warehouse_id
         );
         
+        const isReadyForPickup = ['arrived_port', 'out_for_delivery'].includes(pkg.status);
+        
         return `
             <div class="package-card" data-id="${pkg.id}">
                 <div class="package-card-header">
@@ -243,6 +245,18 @@ Views.packages = {
                     <span class="status-badge status-${pkg.status}">${status.label}</span>
                 </div>
                 <p class="package-description">${pkg.description}</p>
+                
+                ${isReadyForPickup && pkg.pickup_code ? `
+                    <div class="pickup-code-banner" onclick="event.stopPropagation()">
+                        <div class="pickup-code-banner-inner">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span class="pickup-code-label">Code de retrait :</span>
+                            <span class="pickup-code-value">${pkg.pickup_code}</span>
+                        </div>
+                        <p class="pickup-code-hint">Donnez ce code à l'agent pour retirer votre colis</p>
+                    </div>
+                ` : ''}
+                
                 <div class="package-meta">
                     <span class="package-meta-item">
                         <svg class="icon-sm" viewBox="0 0 24 24">
@@ -262,6 +276,7 @@ Views.packages = {
             </div>
         `;
     },
+
     
     // Helper: Obtenir le nom de l'entrepot depuis l'ID
     getWarehouseName(country, warehouseId) {

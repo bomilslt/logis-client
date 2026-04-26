@@ -551,6 +551,39 @@ const API = {
         }
     },
     
+    // ==================== LOGI PAY ====================
+    
+    logiPay: {
+        /**
+         * Configuration publique Logi Pay
+         */
+        async getConfig() {
+            return API.request('GET', '/logi-pay/config');
+        },
+        
+        /**
+         * Créer une demande de paiement
+         */
+        async createRequest(data) {
+            return API.request('POST', '/logi-pay/requests', data);
+        },
+        
+        /**
+         * Obtenir toutes les demandes du client
+         */
+        async getRequests(params = {}) {
+            const query = new URLSearchParams(params).toString();
+            return API.request('GET', `/logi-pay/requests${query ? '?' + query : ''}`);
+        },
+        
+        /**
+         * Obtenir une demande spécifique
+         */
+        async getRequest(id) {
+            return API.request('GET', `/logi-pay/requests/${id}`);
+        }
+    },
+    
     // ==================== CLIENT PROFILE ====================
     
     client: {

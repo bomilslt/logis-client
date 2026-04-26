@@ -180,13 +180,11 @@ Views.dashboard = {
         });
     },
     
+
     renderContent(main, user, stats, recentPackages, announcements) {
         main.innerHTML = `
             <div class="dashboard">
-                <div class="dashboard-header">
-                    <h1 class="dashboard-title">Bonjour, ${user?.first_name || 'Client'}</h1>
-                    <p class="dashboard-subtitle">Voici un apercu de vos expeditions</p>
-                </div>
+
                 
                 ${announcements.length > 0 ? this.renderAnnouncements(announcements) : ''}
                 

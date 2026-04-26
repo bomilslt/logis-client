@@ -165,6 +165,10 @@
                         <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#calculator"></use></svg>
                         <span>Tarifs</span>
                     </a>
+                    <a href="#/logi-pay" class="header-nav-item" data-view="logi-pay">
+                        <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#dollar-sign"></use></svg>
+                        <span>Logi Pay</span>
+                    </a>
                     <a href="#/track" class="header-nav-item" data-view="track">
                         <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#search"></use></svg>
                         <span>Suivre</span>
@@ -180,6 +184,9 @@
                         <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#bell"></use></svg>
                         <span class="badge" id="notification-badge" hidden>0</span>
                     </button>
+                    <a href="#/calculator" class="btn-icon header-nav-item" id="btn-tarifs-mobile" aria-label="Tarifs" data-view="calculator" title="Tarifs">
+                        <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#calculator"></use></svg>
+                    </a>
                     <button class="btn-icon" id="btn-profile" aria-label="Profil">
                         <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#user"></use></svg>
                     </button>
@@ -210,9 +217,9 @@
                 <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#search"></use></svg>
                 <span>Suivre</span>
             </a>
-            <a href="#/calculator" class="nav-item" data-view="calculator">
-                <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#calculator"></use></svg>
-                <span>Tarifs</span>
+            <a href="#/logi-pay" class="nav-item" data-view="logi-pay">
+                <svg class="icon" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#dollar-sign"></use></svg>
+                <span>Logi Pay</span>
             </a>
         </nav>
     </div>
@@ -239,6 +246,7 @@
     <link rel="stylesheet" href="views/templates/templates.css">
     <link rel="stylesheet" href="views/not-found/not-found.css">
     <link rel="stylesheet" href="assets/css/otp-modal.css">
+    <link rel="stylesheet" href="views/logi-pay/logi-pay.css">
 
     <!-- Scripts -->
     <!-- Security: Sanitize utility for XSS protection -->
@@ -285,6 +293,7 @@
     <script src="views/notifications/notifications.js"></script>
     <script src="views/history/history.js"></script>
     <script src="views/calculator/calculator.js"></script>
+    <script src="views/logi-pay/logi-pay.js"></script>
     <script src="views/templates/templates.js"></script>
     <script src="views/not-found/not-found.js"></script>
     

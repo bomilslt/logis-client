@@ -1,0 +1,125 @@
+/* =============================================
+   Logi Pay - Client View Styles
+   ============================================= */
+
+/* Hide tarifs button on desktop (already in header-nav) */
+#btn-tarifs-mobile {
+    display: none;
+}
+
+/* Show tarifs button on mobile only — sized identically to the other btn-icon buttons */
+@media (max-width: 767px) {
+    #btn-tarifs-mobile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+        color: var(--color-gray-600, #4b5563);
+        text-decoration: none;
+        padding: 0;          /* reset header-nav-item padding */
+        font-size: inherit;  /* reset header-nav-item font-size */
+        gap: 0;
+    }
+    #btn-tarifs-mobile:hover {
+        background: var(--color-gray-100, #f3f4f6);
+    }
+    #btn-tarifs-mobile .icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ---- Logi Pay Form Layout ---- */
+.logi-pay-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .logi-pay-grid {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+/* ---- Amount Estimator Box ---- */
+.lp-estimate-box {
+    background: var(--bg-color-alt, #f8f9fa);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--spacing-md, 16px);
+    margin-bottom: var(--spacing-md, 16px);
+}
+
+.lp-estimate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.lp-estimate-row:first-child {
+    font-size: 13px;
+    color: var(--text-muted, #64748b);
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+.lp-estimate-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary, #1a56db);
+}
+
+/* ---- Status Badges ---- */
+.lp-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ---- History Table ---- */
+#lp-history-table {
+    font-size: 14px;
+}
+
+#lp-history-table thead th {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted, #64748b);
+}
+
+/* ---- Empty state in history ---- */
+.lp-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted, #64748b);
+}
+
+.lp-empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+/* ---- Mobile: Full-width card layout ---- */
+@media (max-width: 640px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #logi-pay-form .form-group {
+        margin-bottom: 12px;
+    }
+}

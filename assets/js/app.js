@@ -99,6 +99,7 @@ const App = {
         Router.register('/notifications', () => Views.notifications.render());
         Router.register('/history', () => Views.history.render());
         Router.register('/calculator', () => Views.calculator.render());
+        Router.register('/logi-pay', () => LogiPayView.render());
         Router.register('/templates', () => Views.templates.render());
     },
     

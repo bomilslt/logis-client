@@ -78,6 +78,8 @@ const PushService = {
         
         try {
             // Enregistrer le service worker
+            // Note: en dev local (Live Server / port custom), sw.js peut ne pas être disponible
+            // → l'erreur 404 est normale et n'impacte pas le fonctionnement de l'app
             const registration = await navigator.serviceWorker.register('/sw.js');
             console.log('Service Worker registered');
             
@@ -88,7 +90,8 @@ const PushService = {
             this._subscription = await registration.pushManager.getSubscription();
             
         } catch (e) {
-            console.error('Service Worker registration failed:', e);
+            // Erreur attendue en dev (sw.js absent) ou navigateur non supporté
+            console.warn('[PushService] Service Worker non disponible (dev ou non supporté):', e.message);
         }
     },
     

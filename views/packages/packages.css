@@ -120,3 +120,57 @@
 .package-amount.unpaid {
     color: var(--color-error);
 }
+
+/* ======================== */
+/* Pickup Code Banner       */
+/* ======================== */
+
+.pickup-code-banner {
+    margin: 10px 0;
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.12), rgba(16, 185, 129, 0.08));
+    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: default;
+}
+
+[data-theme="dark"] .pickup-code-banner {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.2), rgba(16, 185, 129, 0.12));
+    border-color: rgba(16, 185, 129, 0.5);
+}
+
+.pickup-code-banner-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    color: #059669;
+}
+
+[data-theme="dark"] .pickup-code-banner-inner {
+    color: #34d399;
+}
+
+.pickup-code-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.pickup-code-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    font-variant-numeric: tabular-nums;
+    color: #047857;
+}
+
+[data-theme="dark"] .pickup-code-value {
+    color: #6ee7b7;
+}
+
+.pickup-code-hint {
+    font-size: 0.72rem;
+    color: var(--text-tertiary, #9ca3af);
+    margin: 0;
+    line-height: 1.3;
+}
