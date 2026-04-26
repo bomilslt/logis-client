@@ -1,0 +1,189 @@
+/* ============================================================================
+   PWA Install Banner — Express Cargo
+   ============================================================================ */
+
+.install-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translate(-50%, calc(100% + 24px));
+    width: min(560px, calc(100vw - 24px));
+    z-index: 10000;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "icon text close" "icon text actions";
+    align-items: center;
+    gap: 4px 14px;
+
+    padding: 14px 16px;
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: 14px;
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.08),
+        0 12px 32px rgba(15, 23, 42, 0.18);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+
+    transition: transform 320ms cubic-bezier(.2, .8, .2, 1),
+                opacity 320ms ease;
+    opacity: 0;
+    pointer-events: none;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.install-banner.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.install-banner-icon {
+    grid-area: icon;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f1f5f9;
+    padding: 4px;
+}
+
+.install-banner-text {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.install-banner-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.25;
+}
+
+.install-banner-subtitle {
+    font-size: 12.5px;
+    color: #475569;
+    line-height: 1.35;
+}
+
+.install-banner-actions {
+    grid-area: actions;
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+.install-banner-btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    transition: background 150ms ease, transform 80ms ease;
+    font-family: inherit;
+}
+
+.install-banner-btn:active { transform: translateY(1px); }
+
+.install-banner-btn-primary {
+    background: #1a56db;
+    color: #ffffff;
+}
+
+.install-banner-btn-primary:hover { background: #1648b8; }
+
+.install-banner-btn-secondary {
+    background: transparent;
+    color: #475569;
+}
+
+.install-banner-btn-secondary:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.install-banner-close {
+    grid-area: close;
+    align-self: start;
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 22px;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+.install-banner-close:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* iOS variant: no install button, instructions only */
+.install-banner-ios .install-banner-subtitle {
+    color: #334155;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .install-banner {
+        bottom: 12px;
+        padding: 12px 14px;
+        gap: 2px 12px;
+    }
+
+    .install-banner-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .install-banner-title { font-size: 13.5px; }
+    .install-banner-subtitle { font-size: 12px; }
+
+    .install-banner-btn {
+        padding: 7px 12px;
+        font-size: 12.5px;
+    }
+}
+
+/* Dark theme */
+[data-theme="dark"] .install-banner {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.4),
+        0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .install-banner-title { color: #f8fafc; }
+[data-theme="dark"] .install-banner-subtitle { color: #94a3b8; }
+[data-theme="dark"] .install-banner-icon { background: #1e293b; }
+[data-theme="dark"] .install-banner-btn-secondary { color: #cbd5e1; }
+[data-theme="dark"] .install-banner-btn-secondary:hover {
+    background: #1e293b;
+    color: #f8fafc;
+}
+[data-theme="dark"] .install-banner-close { color: #64748b; }
+[data-theme="dark"] .install-banner-close:hover {
+    background: #1e293b;
+    color: #f8fafc;
+}
+
+/* Don't push under the bottom nav on mobile */
+@media (max-width: 768px) {
+    .install-banner {
+        bottom: calc(72px + env(safe-area-inset-bottom, 0));
+    }
+}

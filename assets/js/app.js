@@ -29,8 +29,29 @@ const App = {
             RealtimeService.start();
         }
         
+        // Enregistrer le service worker (prérequis PWA)
+        this.registerServiceWorker();
+
+        // Initialiser la bannière d'installation PWA
+        if (window.InstallBanner) {
+            window.InstallBanner.init();
+        }
+
         // Event listeners globaux
         this.setupEventListeners();
+    },
+
+    /**
+     * Enregistre le service worker — prérequis pour l'installation PWA.
+     * Échec silencieux en dev local si /sw.js n'est pas accessible.
+     */
+    async registerServiceWorker() {
+        if (!('serviceWorker' in navigator)) return;
+        try {
+            await navigator.serviceWorker.register('/sw.js');
+        } catch (e) {
+            console.warn('[App] Service Worker registration failed:', e.message);
+        }
     },
     
     /**
