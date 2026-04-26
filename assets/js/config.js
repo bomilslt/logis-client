@@ -34,12 +34,12 @@ const ENV_CONFIG = {
     },
     production: {
         // Ces valeurs seront surchargées par window.EXPRESS_CARGO_CONFIG
-        API_URL: 'https://logis-production.up.railway.app/api',
+        API_URL: 'https://apilogi.bomils.com/api',
         TENANT_ID: 'ec-tenant-001'
     },
     mobile: {
         // Pour l'APK, utiliser l'URL de production
-        API_URL: 'https://logis-production.up.railway.app/api',
+        API_URL: 'https://apilogi.bomils.com/api',
         TENANT_ID: 'ec-tenant-001'
     }
 };
