@@ -25,6 +25,40 @@
     gap: var(--spacing-lg);
 }
 
+/* Bandeau de restauration de brouillon */
+.draft-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-md);
+    color: #92400e;
+    font-size: var(--font-size-sm);
+}
+
+.draft-banner-icon {
+    display: inline-flex;
+    align-items: center;
+    color: #b45309;
+    flex-shrink: 0;
+}
+
+.draft-banner-text {
+    flex: 1;
+}
+
+.draft-banner .btn {
+    color: #92400e;
+    flex-shrink: 0;
+}
+
+.draft-banner .btn:hover {
+    background: rgba(146, 64, 14, 0.1);
+}
+
 .form-section {
     background: var(--color-white);
     border-radius: var(--radius-lg);

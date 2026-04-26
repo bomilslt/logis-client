@@ -158,9 +158,9 @@ Views.history = {
             </div>
         `;
         
-        if (this.allData.length > 0) {
-            this.initComponents(this.allData);
-        }
+        // Toujours initialiser les filtres (même sans données),
+        // pour que l'utilisateur voie les selects/date pickers dès le départ.
+        this.initComponents(this.allData);
         this.attachEvents();
     },
     
@@ -223,7 +223,12 @@ Views.history = {
             onChange: () => this.applyFilters()
         });
         
-        // DataTable
+        // DataTable - uniquement si le conteneur existe (pas en mode empty-state)
+        const tableContainer = document.getElementById('history-table');
+        if (!tableContainer) {
+            this.datatable = null;
+            return;
+        }
         this.datatable = new DataTable({
             container: '#history-table',
             columns: [

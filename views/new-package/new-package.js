@@ -13,14 +13,107 @@ Views.newPackage = {
     warehouseSelect: null,
     currencySelect: null,
     photoUploader: null,
+
+    // ===== Autosauvegarde (brouillon) =====
+    DRAFT_KEY: 'ec_new_package_draft',
+    DRAFT_TTL_MS: 7 * 24 * 60 * 60 * 1000, // 7 jours
+    _saveTimer: null,
+    _draftRestored: false,
+
+    /**
+     * Sauvegarde l'état du formulaire dans localStorage (débouncé à 300ms).
+     * Ne fait rien en mode édition.
+     */
+    saveDraft() {
+        if (this.editMode) return;
+        clearTimeout(this._saveTimer);
+        this._saveTimer = setTimeout(() => {
+            try {
+                const draft = {
+                    ts: Date.now(),
+                    supplier_tracking: document.getElementById('supplier_tracking')?.value || '',
+                    description: document.getElementById('description')?.value || '',
+                    quantity: document.getElementById('quantity')?.value || '',
+                    weight: document.getElementById('weight')?.value || '',
+                    cbm: document.getElementById('cbm')?.value || '',
+                    declared_value: document.getElementById('declared_value')?.value || '',
+                    currency: this.currencySelect?.getValue() || '',
+                    transport_mode: this.transportSelect?.getValue() || '',
+                    package_type: this.packageTypeSelect?.getValue() || '',
+                    origin: {
+                        country: this.originCountrySelect?.getValue() || '',
+                        city: this.originCitySelect?.getValue() || ''
+                    },
+                    destination: {
+                        country: this.countrySelect?.getValue() || '',
+                        warehouse: this.warehouseSelect?.getValue() || ''
+                    },
+                    recipient: {
+                        name: document.getElementById('recipient_name')?.value || '',
+                        phone: document.getElementById('recipient_phone')?.value || ''
+                    }
+                };
+                // Éviter de sauvegarder un formulaire totalement vide
+                if (this._isDraftEmpty(draft)) {
+                    localStorage.removeItem(this.DRAFT_KEY);
+                    return;
+                }
+                localStorage.setItem(this.DRAFT_KEY, JSON.stringify(draft));
+            } catch (e) {
+                console.warn('[new-package] saveDraft failed', e);
+            }
+        }, 300);
+    },
+
+    _isDraftEmpty(d) {
+        return !d.supplier_tracking && !d.description &&
+               !d.weight && !d.cbm && !d.declared_value &&
+               !d.transport_mode && !d.package_type &&
+               !d.destination?.country && !d.destination?.warehouse &&
+               !d.recipient?.name && !d.recipient?.phone;
+    },
+
+    loadDraft() {
+        try {
+            const raw = localStorage.getItem(this.DRAFT_KEY);
+            if (!raw) return null;
+            const draft = JSON.parse(raw);
+            // Expirer après TTL
+            if (draft.ts && (Date.now() - draft.ts) > this.DRAFT_TTL_MS) {
+                this.clearDraft();
+                return null;
+            }
+            return this._isDraftEmpty(draft) ? null : draft;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    clearDraft() {
+        try { localStorage.removeItem(this.DRAFT_KEY); } catch (e) {}
+        this._draftRestored = false;
+        const banner = document.getElementById('draft-banner');
+        if (banner) banner.remove();
+    },
     
     async render() {
         const main = document.getElementById('main-content');
         const params = new URLSearchParams(window.location.hash.split('?')[1]);
         this.packageId = params.get('edit');
         this.editMode = !!this.packageId;
-        
+
         let packageData = null;
+        this._draftRestored = false;
+
+        // En mode création: tenter de restaurer un brouillon
+        if (!this.editMode) {
+            const draft = this.loadDraft();
+            if (draft) {
+                packageData = draft;
+                this._draftRestored = true;
+            }
+        }
+
         if (this.editMode) {
             main.innerHTML = Loader.page('Chargement...');
             
@@ -90,6 +183,37 @@ Views.newPackage = {
         this.attachEvents(packageData);
         this.updateFormVisibility();
         this.calculateEstimate();
+
+        // Notifier l'utilisateur si un brouillon a été restauré
+        if (this._draftRestored) {
+            this._showDraftBanner();
+        }
+    },
+
+    _showDraftBanner() {
+        const header = document.querySelector('.new-package-view .page-header');
+        if (!header || document.getElementById('draft-banner')) return;
+        const banner = document.createElement('div');
+        banner.id = 'draft-banner';
+        banner.className = 'draft-banner';
+        banner.innerHTML = `
+            <span class="draft-banner-icon">${Icons.get('save', { size: 16 })}</span>
+            <span class="draft-banner-text">Brouillon restauré — vos saisies précédentes ont été rétablies.</span>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-discard-draft">Effacer le brouillon</button>
+        `;
+        header.insertAdjacentElement('afterend', banner);
+        document.getElementById('btn-discard-draft')?.addEventListener('click', async () => {
+            const ok = await Modal.confirm({
+                title: 'Effacer le brouillon ?',
+                message: 'Toutes les données saisies seront perdues. Continuer ?',
+                confirmText: 'Effacer',
+                danger: true
+            });
+            if (ok) {
+                this.clearDraft();
+                this.render();
+            }
+        });
     },
     
     renderForm(packageData) {
@@ -385,7 +509,7 @@ Views.newPackage = {
             container: '#warehouse-select',
             placeholder: 'Choisissez d\'abord un pays',
             items: [],
-            onSelect: () => {}
+            onSelect: () => { this.saveDraft(); }
         });
         
         // Si edition, pre-remplir destination
@@ -404,7 +528,7 @@ Views.newPackage = {
             container: '#currency-select',
             placeholder: 'Devise',
             items: CONFIG.CURRENCIES.map(c => ({ id: c, name: c })),
-            onSelect: () => {}
+            onSelect: () => { this.saveDraft(); }
         });
         this.currencySelect.setValue(packageData?.currency || 'USD');
     },
@@ -580,6 +704,8 @@ Views.newPackage = {
     },
     
     calculateEstimate() {
+        // Sauvegarder le brouillon à chaque recalcul (couvre tous les SearchSelect en cascade)
+        this.saveDraft();
         const originCountry = this.originCountrySelect?.getValue();
         const transport = this.transportSelect?.getValue();
         const packageType = this.packageTypeSelect?.getValue();
@@ -882,6 +1008,15 @@ Views.newPackage = {
                 this.calculateEstimate();
             });
         });
+
+        // Autosauvegarde sur tout changement d'input/textarea du formulaire
+        // (couvre supplier_tracking, description, declared_value, recipient_*)
+        document.getElementById('package-form')?.addEventListener('input', (e) => {
+            const target = e.target;
+            if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+                this.saveDraft();
+            }
+        });
         
         // Save template
         document.getElementById('btn-save-template')?.addEventListener('click', async () => {
@@ -987,6 +1122,7 @@ Views.newPackage = {
                 Router.navigate(`/packages/${this.packageId}`);
             } else {
                 const result = await API.packages.create(data);
+                this.clearDraft(); // Brouillon plus nécessaire après création réussie
                 Toast.success('Colis cree');
                 Router.navigate(`/packages/${result.package.id}`);
             }
