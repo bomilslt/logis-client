@@ -125,6 +125,14 @@ const App = {
     },
     
     setupEventListeners() {
+        // Empecher la molette de modifier la valeur des input[type=number]
+        document.addEventListener('wheel', (e) => {
+            const el = document.activeElement;
+            if (el && el.tagName === 'INPUT' && el.type === 'number') {
+                el.blur();
+            }
+        }, { passive: true });
+
         // Bouton notifications header
         document.getElementById('btn-notifications')?.addEventListener('click', () => {
             Router.navigate('/notifications');
