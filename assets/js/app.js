@@ -122,6 +122,7 @@ const App = {
         Router.register('/calculator', () => Views.calculator.render());
         Router.register('/logi-pay', () => LogiPayView.render());
         Router.register('/templates', () => Views.templates.render());
+        Router.register('/groups', () => Views.groups.render());
     },
     
     setupEventListeners() {

@@ -59,6 +59,11 @@ Views.login = {
                         <p>Pas encore de compte ? <a href="#/register">Creer un compte</a></p>
                     </div>
                 </div>
+                <div class="auth-legal">
+                    <a href="/privacy.html" target="_blank" rel="noopener">Politique de confidentialité</a>
+                    <span>&middot;</span>
+                    <a href="/terms.html" target="_blank" rel="noopener">Conditions d'utilisation</a>
+                </div>
             </div>
         `;
         

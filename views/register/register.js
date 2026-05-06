@@ -65,6 +65,12 @@ Views.register = {
                         <p>Deja un compte ? <a href="#/login">Se connecter</a></p>
                     </div>
                 </div>
+                <div class="auth-legal">
+                    <span>En créant un compte, vous acceptez nos</span>
+                    <a href="/terms.html" target="_blank" rel="noopener">Conditions d'utilisation</a>
+                    <span>&amp;</span>
+                    <a href="/privacy.html" target="_blank" rel="noopener">Politique de confidentialité</a>
+                </div>
             </div>
         `;
         

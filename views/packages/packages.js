@@ -244,6 +244,12 @@ Views.packages = {
                     </div>
                     <span class="status-badge status-${pkg.status}">${status.label}</span>
                 </div>
+                ${pkg.group_number ? `
+                    <a href="#/groups" class="pkg-group-badge" onclick="event.stopPropagation()" title="Fait partie du groupage ${pkg.group_number}">
+                        <svg class="icon-sm" viewBox="0 0 24 24"><use href="assets/icons/icons.svg#layers"></use></svg>
+                        <span>Groupage ${pkg.group_number}</span>
+                    </a>
+                ` : ''}
                 <p class="package-description">${pkg.description}</p>
                 
                 ${isReadyForPickup && pkg.pickup_code ? `

@@ -5,8 +5,10 @@
 .auth-container {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: var(--spacing-md);
     padding: var(--spacing-md);
     background: linear-gradient(135deg, var(--color-primary-bg) 0%, var(--color-white) 100%);
 }
@@ -96,4 +98,24 @@
     flex: 1;
     height: 1px;
     background: var(--color-gray-200);
+}
+
+.auth-legal {
+    font-size: 0.75rem;
+    color: var(--color-gray-400);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.auth-legal a {
+    color: var(--color-gray-400);
+    text-decoration: none;
+}
+
+.auth-legal a:hover {
+    color: var(--color-gray-600);
+    text-decoration: underline;
 }

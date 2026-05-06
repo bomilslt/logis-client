@@ -584,6 +584,47 @@ const API = {
         }
     },
     
+    // ==================== GROUPAGES ====================
+
+    groups: {
+        /**
+         * Liste des groupages du client
+         */
+        async getAll(params = {}) {
+            const query = new URLSearchParams(params).toString();
+            return API.request('GET', `/groups${query ? '?' + query : ''}`);
+        },
+
+        /**
+         * Détail d'un groupage
+         */
+        async getById(groupId) {
+            return API.request('GET', `/groups/${groupId}`);
+        },
+
+        /**
+         * Créer un groupage
+         * @param {{package_ids: string[], client_notes?: string}} data
+         */
+        async create(data) {
+            return API.request('POST', '/groups', data);
+        },
+
+        /**
+         * Annuler une demande de groupage (si pending_approval)
+         */
+        async cancel(groupId) {
+            return API.request('DELETE', `/groups/${groupId}`);
+        },
+
+        /**
+         * Lister les colis éligibles à un groupage (pending/received, non groupés)
+         */
+        async getEligiblePackages() {
+            return API.request('GET', '/groups/eligible-packages');
+        }
+    },
+
     // ==================== CLIENT PROFILE ====================
     
     client: {

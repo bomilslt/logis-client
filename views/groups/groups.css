@@ -1,0 +1,339 @@
+/* ========================================
+   Groupages View Styles (client)
+======================================== */
+
+.groups-info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-primary-bg);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    margin-bottom: var(--spacing-md);
+}
+
+.groups-info-banner svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Liste des groupages */
+.groups-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.group-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: box-shadow var(--transition-fast);
+}
+
+.group-card:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.group-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    cursor: pointer;
+    gap: var(--spacing-sm);
+}
+
+.group-card-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.group-card-number {
+    font-family: monospace;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    font-size: 15px;
+}
+
+.group-card-meta {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    margin-top: 2px;
+}
+
+.group-card-side {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.group-card-side .chevron {
+    transition: transform var(--transition-fast);
+    color: var(--color-gray-400);
+}
+
+.group-card-side .chevron.rotated {
+    transform: rotate(180deg);
+}
+
+.group-card-body {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--color-gray-100);
+    background: var(--color-gray-50);
+}
+
+/* Badges */
+.grp-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+}
+
+.grp-badge-warning  { background: #fef3c7; color: #92400e; }
+.grp-badge-info     { background: #dbeafe; color: #1e40af; }
+.grp-badge-primary  { background: var(--color-primary-bg); color: var(--color-primary); }
+.grp-badge-success  { background: #dcfce7; color: #166534; }
+.grp-badge-error    { background: #fee2e2; color: #991b1b; }
+.grp-badge-default  { background: var(--color-gray-100); color: var(--color-gray-600); }
+
+/* Progression */
+.group-progress {
+    margin-bottom: var(--spacing-md);
+}
+
+.group-progress-bar {
+    height: 6px;
+    background: var(--color-gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.group-progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+}
+
+.group-progress-label {
+    font-size: 12px;
+    color: var(--color-gray-600);
+    margin-top: 4px;
+}
+
+/* Notes */
+.group-note {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+    border-left: 3px solid var(--color-gray-300);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+}
+
+.group-note-error {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* Section title */
+.group-section-title {
+    font-size: 12px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-500);
+    margin: var(--spacing-md) 0 var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Liste des colis du groupe */
+.group-packages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.group-package-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-100);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-fast);
+}
+
+.group-package-row:hover {
+    border-color: var(--color-primary);
+}
+
+.group-package-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-gray-100);
+    color: var(--color-gray-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.group-package-icon.received {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.group-package-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.group-package-tracking {
+    font-family: monospace;
+    font-weight: var(--font-weight-bold);
+    font-size: 12px;
+    color: var(--color-gray-800);
+}
+
+.group-package-desc {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.group-card-actions {
+    margin-top: var(--spacing-md);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Modal de création - liste des colis éligibles */
+.eligible-packages-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.eligible-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.eligible-row:hover {
+    border-color: var(--color-gray-300);
+    background: var(--color-gray-50);
+}
+
+.eligible-row.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary-bg);
+}
+
+.eligible-row-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.eligible-row.selected .eligible-row-check {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.eligible-row-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.eligible-row-tracking {
+    font-family: monospace;
+    font-weight: var(--font-weight-bold);
+    font-size: 13px;
+}
+
+.eligible-row-desc {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#grp-selection-hint {
+    transition: color var(--transition-fast);
+}
+
+#grp-selection-hint.valid {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Badge groupage sur les cartes colis */
+.pkg-group-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    margin: var(--spacing-xs) 0;
+    background: var(--color-primary-bg);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background var(--transition-fast);
+}
+
+.pkg-group-badge:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Dark mode */
+[data-theme="dark"] .group-card {
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-200);
+}
+
+[data-theme="dark"] .group-card-body {
+    background: var(--color-gray-50);
+}
+
+[data-theme="dark"] .group-package-row,
+[data-theme="dark"] .eligible-row {
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-200);
+}
